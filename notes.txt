@@ -1,0 +1,15 @@
+LeNet-5
+- 7 layers -> 32 x 32 x 1
+    - C1 -> 
+        - 6 feature maps
+        - 5x5 filters
+        - output -> 28 x 28 x 6
+    - S2 ->
+        - 6 feature maps -> 14 x 14 x 6
+
+
+- Convolution
+    - dimensions
+    - parameters
+    - forward
+        - 
