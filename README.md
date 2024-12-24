@@ -11,6 +11,11 @@ this is a reimplementation of LeCunn's 1998 influential paper "Gradient Based Le
 hyperparameter values, loss choice, optimizer choice, initialization, architecture etc. all follow the paper. my goal was to implement the paper as closely as possible and using as little of the pytorch library as I could (i.e. not using nn.conv2d, nn.avgpool, nn.BCE, nn.optim, etc).
 
 ## results
+epoch 1 training loss over time:
+
+![image](https://github.com/user-attachments/assets/a7df16c1-fab8-4168-a692-64190a0d7b47)
+
+
 before training:
 
 ![image](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
