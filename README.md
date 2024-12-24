@@ -27,7 +27,7 @@ this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based L
 
 ### model performance
 after training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
-- macro F1 sore: 0.964 (current state of the art models achieve around 0.99)
+- macro F1 sore: 0.964 (current state of the art models classifiers achieve around 0.99)
 - per-digit F1 scores:
   | Digit | F1 Score |
   |-------|----------|
