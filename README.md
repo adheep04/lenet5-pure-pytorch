@@ -26,9 +26,9 @@ this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based L
 ## results
 
 ### model performance
-After training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
-- Macro F1 Score: 0.964 (current state of the art models achieve around 0.99)
-- Per-digit F1 Scores:
+after training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
+- macro F1 sore: 0.964 (current state of the art models achieve around 0.99)
+- per-digit F1 scores:
   | Digit | F1 Score |
   |-------|----------|
   | 0     | 0.980    |
@@ -47,11 +47,11 @@ After training for 2 epochs on the MNIST dataset (60,000 training samples), the 
 - consistent F1 scores above 0.93 across all digits
 
 ### training visualization
-#### Loss Over Time (Epoch 1)
+#### loss over time (epoch 1)
 ![loss-over-time](https://github.com/user-attachments/assets/c120031b-8aae-4a7b-987b-22330ea578dc)
 
 ### model predictions (before/after)
-#### Before Training
+#### before training
 ![Pre-training Predictions](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
 
 #### after training
