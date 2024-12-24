@@ -15,7 +15,7 @@ Built entirely from scratch using only PyTorch's basic tensor operations:
   - Custom loss function
   - Custom optimizer
 Follows the original 1998 paper's specifications exactly:
-  - Network architecture (conv5x5 -> avgpool -> conv5x5 -> pool -> fc -> rbf -> pred)
+  - Network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
   - Hyperparameter values (though they didn't reveal some of their values)
   - Weight initialization method 
   - Loss function and optimizer choice (maximum a posteriori loss and SDLM optimizer)
