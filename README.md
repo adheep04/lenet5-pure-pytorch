@@ -8,6 +8,7 @@
 ## about
 this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based Learning Applied to Document Recognition"](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) which introduced LeNet-5, a low-parameter, CNN-based neural network to classify handwritten digits 0-9.
 
+also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-document
 ## features
 
 ### built from scratch using only PyTorch's tensor operations:
