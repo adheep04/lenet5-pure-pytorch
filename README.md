@@ -12,10 +12,13 @@ hyperparameter values, loss choice, optimizer choice, initialization, architectu
 
 ## results
 before training:
-![image](https://github.com/user-attachments/assets/b1a6d13b-2d6c-4f2b-9f83-2be9c3461ebc)
+
+![image](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
+
 
 after training:
-![image](https://github.com/user-attachments/assets/6beb42fc-6dde-43d2-b6a2-7e08c533516c)
+
+![image](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
 
 
 
