@@ -9,16 +9,16 @@
 this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based Learning Applied to Document Recognition"](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) which introduced LeNet-5, a low-parameter, CNN-based neural network to classify handwritten digits 0-9.
 
 ## features
-- Built entirely from scratch using only PyTorch's basic tensor operations:
+Built entirely from scratch using only PyTorch's basic tensor operations:
   - Custom convolution layer implementation
   - Custom average pooling layer
   - Custom loss function
   - Custom optimizer
-- Follows the original 1998 paper's specifications exactly:
-  - Network architecture
-  - Hyperparameters
-  - Weight initialization method
-  - Loss function and optimizer choice
+Follows the original 1998 paper's specifications exactly:
+  - Network architecture (conv5x5 -> avgpool -> conv5x5 -> pool -> fc -> rbf -> pred)
+  - Hyperparameter values (though they didn't reveal some of their values)
+  - Weight initialization method 
+  - Loss function and optimizer choice (maximum a posteriori loss and SDLM optimizer)
 - Trained and validated on MNIST dataset (60,000 training samples, 10,000 validation samples)
 
 ## results
