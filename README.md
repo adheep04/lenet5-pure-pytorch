@@ -11,6 +11,8 @@ hyperparameter values, loss choice, optimizer choice, initialization, architectu
 
 this model was trained on 60,000 samples from MNIST and validated with a seperate set of 10,000 samples. 
 
+## results
+
 ### Model Performance
 After training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
 - Macro F1 Score: 0.964
@@ -28,12 +30,9 @@ After training for 2 epochs on the MNIST dataset (60,000 training samples), the 
   | 8     | 0.938    |
   | 9     | 0.950    |
 
-### Key Highlights
-- Fast Convergence: Achieved strong performance in just 2 epochs
-- Balanced Performance: Consistent F1 scores above 0.93 across all digits
-- Efficient Training: Results obtained using [your training specifications - batch size, optimizer, etc.]
-
-## results
+#### Highlights
+- fast convergence - achieved strong performance in just 2 epochs (state of the art classifiers score 0.99)
+- consistent F1 scores above 0.93 across all digits
 
 The model's final accuracy tested on the validation set after 1 epoch of training was 97%. 
 
