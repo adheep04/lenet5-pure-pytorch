@@ -36,7 +36,8 @@ After training for 2 epochs on the MNIST dataset (60,000 training samples), the 
 
 ### Training Visualization
 #### Loss Over Time (Epoch 1)
-![Training Loss](https://github.com/user-attachments/assets/a7df16c1-fab8-4168-a692-64190a0d7b47)
+![loss-over-time](https://github.com/user-attachments/assets/c120031b-8aae-4a7b-987b-22330ea578dc)
+
 
 ### Model Predictions
 #### Before Training
