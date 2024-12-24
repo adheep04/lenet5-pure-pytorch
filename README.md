@@ -1,6 +1,6 @@
-# LeNet-5 digit-classifier reimplementation with custom classes
- 	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
+
+# LeNet-5 digit-classifier reimplementation with custom classes
 
 
 ## contents
