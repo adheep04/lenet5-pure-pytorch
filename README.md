@@ -10,22 +10,22 @@ this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based L
 
 ## features
 
-Built entirely from scratch using only PyTorch's basic tensor operations:
-- Custom convolution layer implementation
-- Custom average pooling layer
-- Custom loss function
-- Custom optimizer
+built entirely from scratch using only PyTorch's tensor operations:
+- custom convolution layer implementation
+- custom average pooling layer
+- custom loss function
+- custom optimizer
 
-Follows the original 1998 paper's specifications exactly:
-- Network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
-- Hyperparameter values (though they didn't reveal some of their values)
-- Weight initialization method 
-- Loss function and optimizer choice (maximum a posteriori loss and SDLM optimizer)
-- Trained and validated on MNIST dataset (60,000 training samples, 10,000 validation samples)
+follows the original 1998 paper's specifications exactly:
+- network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
+- hyperparameter values (though they didn't reveal some of their values)
+- weight initialization method 
+- loss function and optimizer choice (maximum a posteriori loss and SDLM optimizer)
+- trained and validated on MNIST dataset (60,000 training samples, 10,000 validation samples)
 
 ## results
 
-### Model Performance
+### model performance
 After training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
 - Macro F1 Score: 0.964 (current state of the art models achieve around 0.99)
 - Per-digit F1 Scores:
@@ -42,19 +42,19 @@ After training for 2 epochs on the MNIST dataset (60,000 training samples), the 
   | 8     | 0.938    |
   | 9     | 0.950    |
 
-#### Highlights
+#### highlights 
 - training converged in just 2 epochs 
 - consistent F1 scores above 0.93 across all digits
 
-### Training Visualization
+### training visualization
 #### Loss Over Time (Epoch 1)
 ![loss-over-time](https://github.com/user-attachments/assets/c120031b-8aae-4a7b-987b-22330ea578dc)
 
-### Model Predictions
+### model predictions (before/after)
 #### Before Training
 ![Pre-training Predictions](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
 
-#### After Training
+#### after training
 ![Post-training Predictions](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
 
 
