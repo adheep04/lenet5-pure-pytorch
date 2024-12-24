@@ -10,13 +10,13 @@ this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based L
 
 ## features
 
-built entirely from scratch using only PyTorch's tensor operations:
+### built from scratch using only PyTorch's tensor operations:
 - custom convolution layer implementation
 - custom average pooling layer
 - custom loss function
 - custom optimizer
 
-follows the original 1998 paper's specifications exactly:
+### follows the original 1998 paper's specifications exactly:
 - network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
 - hyperparameter values (though they didn't reveal some of their values)
 - weight initialization method 
