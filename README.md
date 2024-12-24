@@ -1,19 +1,17 @@
 # LeNet-5 digit-classifier reimplementation with custom classes
 
-## Table of Contents
-- [About](#about)
-- [Features](#features)
+## contents
+- [Features](#features/about)
 - [Results](#results)
 - [How to Use](#how-to-use)
 
-## About
-Your about section content here
+## features/about
+this is a reimplementation of LeCunn's 1998 paper "Gradient Based Learning Applied to Document Recognition" which introduced LeNet-5, a low-parameter CNN to classify handwritten digits 0-9.
 
-## Features
-Your features content here
+hyperparameter values, loss choice, optimizer choice, initialization, architecture etc are all taken from the paper. My goal was to implement the paper as closely as possible and using as little of the pytorch library as I could (i.e. not using nn.conv2d, nn.avgpool, nn.BCE, nn.optim, etc)
 
-## Results
+## results
 Your results content here
 
-## How to Use
+## how to use
 Your usage instructions here
