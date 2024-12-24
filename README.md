@@ -1,9 +1,9 @@
 # LeNet-5 digit-classifier reimplementation with custom classes
 
 ## contents
-- [Features](#features/about)
-- [Results](#results)
-- [How to Use](#how-to-use)
+- [features](#features/about)
+- [results](#results)
+- [how-to-use](#how-to-use)
 
 ## features/about
 this is a reimplementation of LeCunn's 1998 influential paper "Gradient Based Learning Applied to Document Recognition" which introduced LeNet-5, a low-parameter, CNN-based neural network to classify handwritten digits 0-9.
