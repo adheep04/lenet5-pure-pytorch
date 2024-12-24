@@ -34,21 +34,15 @@ After training for 2 epochs on the MNIST dataset (60,000 training samples), the 
 - fast convergence - achieved strong performance in just 2 epochs (state of the art classifiers score 0.99)
 - consistent F1 scores above 0.93 across all digits
 
-The model's final accuracy tested on the validation set after 1 epoch of training was 97%. 
+### Training Visualization
+#### Loss Over Time (Epoch 1)
+![Training Loss](https://github.com/user-attachments/assets/a7df16c1-fab8-4168-a692-64190a0d7b47)
 
-epoch 1 training loss over time:
+### Model Predictions
+#### Before Training
+![Pre-training Predictions](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
 
-![image](https://github.com/user-attachments/assets/a7df16c1-fab8-4168-a692-64190a0d7b47)
-
-following validation samples are from
-
-before training:
-
-![image](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
-
-
-after training:
-
-![image](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
+#### After Training
+![Post-training Predictions](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
 
 
