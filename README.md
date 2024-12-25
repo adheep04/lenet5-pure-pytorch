@@ -22,7 +22,7 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
 
 ### follows the original 1998 paper's specifications exactly:
 - network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
-- hyperparameter values (though they didn't reveal some of their values)
+- hyperparameter values like A and S in the paper's tanh "squash" function (though they didn't reveal all of the exact values used)
 - weight initialization method 
 - loss function and optimizer choice (maximum a posteriori loss and SDLM optimizer)
 - trained and validated on MNIST dataset (60,000 training samples, 10,000 validation samples)
