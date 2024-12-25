@@ -14,13 +14,13 @@ this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based L
 also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-document
 ## features
 
-### built from scratch using only PyTorch's tensor operations:
+### built from scratch using only PyTorch's tensor operations including...
 - custom convolution layer implementation
 - custom average pooling layer
 - custom loss function
 - custom optimizer
 
-### follows the original 1998 paper's specifications exactly:
+### follows the original 1998 paper's specifications exactly including...
 - network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
 - hyperparameter values like A and S in the paper's tanh "squash" function (though they didn't reveal all of the exact values used)
 - weight initialization method 
@@ -31,7 +31,7 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
 
 ### model performance
 after training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
-- macro F1 sore: 0.964 (current state of the art models classifiers achieve around 0.99)
+- macro F1 score: 0.964 (current state of the art models classifiers achieve around 0.99)
 - per-digit F1 scores:
   | Digit | F1 Score |
   |-------|----------|
