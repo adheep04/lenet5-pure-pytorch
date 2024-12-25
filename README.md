@@ -14,17 +14,19 @@ this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based L
 also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-document
 ## features
 
-### built from scratch using only PyTorch's tensor operations including...
+### designed the following from scratch using only PyTorch's tensor operations:
 - custom convolution layer implementation
+  - supports both fully connected and sparse connection patterns between channels (more flexible than PyTorch's nn.Conv2d which only supports fully connected patterns)
 - custom average pooling layer
 - custom loss function
 - custom optimizer
 
 ### follows the original 1998 paper's specifications exactly including...
 - network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
-- hyperparameter values like A and S in the paper's tanh "squash" function (though they didn't reveal all of the exact values used)
+- hyperparameter values
+  - like A and S in the paper's tanh "squash" function (though they didn't reveal all of the exact values used)
 - weight initialization method 
-- loss function and optimizer choice (maximum a posteriori loss and SDLM optimizer)
+- loss function and optimizer design (maximum a posteriori loss and SDLM optimizer)
 - trained and validated on MNIST dataset (60,000 training samples, 10,000 validation samples)
 
 ## results
