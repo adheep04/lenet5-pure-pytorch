@@ -16,7 +16,7 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
 
 ### designed the following from scratch using only PyTorch's tensor operations:
 - custom convolution layer implementation
-  - supports both fully connected and sparse connection patterns between channels (more flexible than PyTorch's nn.Conv2d which only supports fully connected patterns)
+  - supports fully connected AND sparse connection patterns between channels (more flexible than PyTorch's nn.Conv2d in this)
 - custom average pooling layer
 - custom loss function
 - custom optimizer
