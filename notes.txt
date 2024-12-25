@@ -13,3 +13,13 @@ LeNet-5
     - parameters
     - forward
         - 
+
+
+todo:
+- finish training code
+    - initialize weights
+        - find fan-in value for each weights
+            - 
+        - sample from random distribution from (-2.4*fan-in, 2.4*fan-in)
+    - optimizer
+- train

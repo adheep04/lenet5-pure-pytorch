@@ -1,8 +1,8 @@
 import torch.nn as nn
 import torch
+from torch.optim import Optimizer
 
-from config import get_config
-
+from collections import OrderedDict
 
 class LeNet_5(nn.Module):
     def __init__(self, config):  
@@ -32,66 +32,42 @@ class LeNet_5(nn.Module):
             [0, 1, 2, 3, 4, 5],
         ]
         
-        self.pipeline = nn.Sequential(
-            # (b, 1, 32, 32) -> (b, 6, 28, 28)
-            ConvolutionLayer(num_filters=6, filter_size=5, in_channels=1,),
-            TanhActivation(),
+        self.pipeline = nn.Sequential(OrderedDict([
+            # (1, 32, 32) -> (6, 28, 28)
+            ('C1', ConvolutionLayer(num_filters=6, filter_size=5, in_channels=1, efficient=config['efficient'])),
+            ('tanh1', TanhActivation()),
                             
-            # (b, 6, 28, 28) -> (b, 6, 14, 14)
-            AvgPoolingLayer(num_channels=6, config=config),
-            TanhActivation(),
+            # (6, 28, 28) -> (6, 14, 14)
+            ('S2', AvgPoolingLayer(num_channels=6, efficient=True)),
+            ('tanh2', TanhActivation()),
                     
-            # (b, 6, 14, 14) -> (b, 16, 10, 10)
-            ConvolutionLayer(num_filters=16, filter_size=5, in_channels=6, connections=self.connections),
-            TanhActivation(),
+            # (6, 14, 14) -> (16, 10, 10)
+            ('C3', ConvolutionLayer(num_filters=16, filter_size=5, in_channels=6, efficient=config['efficient'], connections=self.connections)),
+            ('tanh3', TanhActivation()),
                     
-            # (b, 16, 10, 10) -> (b, 16, 5, 5)
-            AvgPoolingLayer(num_channels=16, config=config),
-            TanhActivation(),
+            # (16, 10, 10) -> (16, 5, 5)
+            ('S4', AvgPoolingLayer(num_channels=16, efficient=config['efficient'])),
+            ('tanh4', TanhActivation()),
                                                             
-            # (b, 16, 5, 5) -> (b, 120, 1, 1)
-            ConvolutionLayer(num_filters=120, filter_size=5, in_channels=16,),
-            TanhActivation(),
+            # (16, 5, 5) -> (120, 1, 1)
+            ('C5', ConvolutionLayer(num_filters=120, filter_size=5, in_channels=16, efficient=config['efficient'])),
+            ('tanh5', TanhActivation()),
                         
-            # (b, 120, 1, 1) -> (b, 84)
-            nn.Linear(in_features=120, out_features=84),
-            TanhActivation(),
+            # (120, 1, 1) -> (84)
+            ('F6', nn.Linear(in_features=120, out_features=84)),
+            ('tanh6', TanhActivation()),
                                             
-            # (b, 84) -> (b, 10,)
-            RadialBasisFunctionLayer(weights=self.get_RBF_weights(), num_classes=10, size=84, config=config)
-        )
-
-        
-        # initialize all layers individually
-        self.C1 = ConvolutionLayer(num_filters=6, filter_size=5, in_channels=1)          # (b, 1, 32, 32) -> (b, 6, 28, 28)
-        self.S2 = AvgPoolingLayer(num_channels=6, config=config)                         # (b, 6, 28, 28) -> (b, 6, 14, 14)
-        self.C3 = ConvolutionLayer(                                                      # (b, 6, 14, 14) -> (b, 16, 10, 10)
-            num_filters=16, filter_size=5, in_channels=6, connections=self.connections)
-        self.S4 = AvgPoolingLayer(num_channels=16, config=config)                                        # (b, 16, 10, 10) -> (b, 16, 5, 5)
-        self.C5 = ConvolutionLayer(num_filters=120, filter_size=5, in_channels=16)      # (b, 16, 5, 5) -> (b, 120, 1, 1)
-        self.F6 = nn.Linear(in_features=120, out_features=84)                            # (b, 120, 1, 1) -> (b, 84)
-        self.RBF = RadialBasisFunctionLayer(                                             # (b, 84) -> (b, 10,)
-            weights=self.get_RBF_weights(), num_classes=10, size=84, config=config)
-        self.tanh = TanhActivation()
+            # (84) -> (10,)
+            ('RBF', RadialBasisFunctionLayer(weights=self.get_RBF_weights(), num_classes=10, size=84, efficient=config['efficient']))
+        ]))
     
     def forward(self, x):
-        if not self.config['efficient_model']:
-            x = self.tanh(self.C1(x))
-            x = self.tanh(self.S2(x))
-            x = self.tanh(self.C3(x))
-            x = self.tanh(self.S4(x))
-            x = self.tanh(self.C5(x))
-            x = self.tanh(self.F6(x))
-            return self.RBF(x)
-            
-        else:
-            x = self.pipeline(x)
-            return x
-    
+        x = self.pipeline(x)
+        return x
+
     def get_RBF_weights(self):
         # stylized 12x7 bitmaps for digits 0-9
         digits = [
-            # Digit 0
             [
                 "       ",
                 "  ***  ",
@@ -106,7 +82,6 @@ class LeNet_5(nn.Module):
                 "  ***  ",
                 "       ",
             ],
-            # Digit 1
             [
                 "   **  ",
                 "  ***  ",
@@ -118,10 +93,9 @@ class LeNet_5(nn.Module):
                 "   **  ",
                 "   **  ",
                 "   **  ",
-                " ******",
+                "  **** ",
                 "       ",
             ],
-            # Digit 2
             [
                 " ***** ",
                 " *   **",
@@ -136,7 +110,6 @@ class LeNet_5(nn.Module):
                 "*******",
                 "       ",
             ],
-            # Digit 3
             [
                 " ***** ",
                 "**    *",
@@ -151,7 +124,6 @@ class LeNet_5(nn.Module):
                 " ***** ",
                 "       ",
             ],
-            # Digit 4
             [
                 "       ",
                 "*     *",
@@ -166,7 +138,6 @@ class LeNet_5(nn.Module):
                 "      *",
                 "       ",
             ],
-            # Digit 5
             [
                 "       ",
                 "*******",
@@ -181,7 +152,6 @@ class LeNet_5(nn.Module):
                 " ***** ",
                 "       ",
             ],
-            # Digit 6
             [
                 " ***** ",
                 "**     ",
@@ -196,7 +166,6 @@ class LeNet_5(nn.Module):
                 " ***** ",
                 "       ",
             ],
-            # Digit 7
             [
                 "*******",
                 "     **",
@@ -211,7 +180,6 @@ class LeNet_5(nn.Module):
                 "  *    ",
                 "       ",
             ],
-            # Digit 8
             [
                 " ***** ",
                 "**   **",
@@ -226,7 +194,6 @@ class LeNet_5(nn.Module):
                 " ***** ",
                 "       ",
             ],
-            # Digit 9
             [
                 " ***** ",
                 "*     *",
@@ -237,8 +204,8 @@ class LeNet_5(nn.Module):
                 "      *",
                 "      *",
                 "      *",
-                " *   **",
-                " ***** ",
+                "     **",
+                "  **** ",
                 "       ",
             ],
         ]
@@ -258,6 +225,7 @@ class LeNet_5(nn.Module):
                         
         # flatten to (10, 84)
         return bitmap.flatten(start_dim=1, end_dim=2)
+
         
 class Convolution(nn.Module):
     '''
@@ -276,11 +244,14 @@ class Convolution(nn.Module):
         # size of convolution (e.g. 3: 3x3 convolution)
         self.size = size
         # kernel which will be applied to input patches
-        self.kernel = nn.Parameter(data=torch.rand(size=(self.in_channels, self.size, self.size)))
+        self.weight = nn.Parameter(data=torch.ones(size=(self.in_channels, self.size, self.size)))
         # bias scalar
         self.bias = nn.Parameter(torch.zeros((1)))
+        # fan-in value for the weights in the convolution 
+        # (useful for weight initialization during training)
+        self.fan_in = in_channels * size**2
     
-    def forward(self, x):
+    def forward(self, x, efficient=False):
         '''
         performs a convolution and produces a feature map given an input
         
@@ -300,24 +271,42 @@ class Convolution(nn.Module):
         # validate input channel number
         assert self.in_channels == in_channels, 'input channel size mismatch with accepted num of channels'
         
-        # inititlize output tensor in the same device as the input
-        output = torch.empty(batch_size, output_size, output_size, device=x.device)
-             
-        ''' using for loops for readability and clarity, inefficiency doesn't matter here'''
-        # vertical "slide" of convolution filter
-        for i in range(output_size):
+        if efficient:
+            # Convert input into patches all at once
+            patches = x.unfold(2, self.size, 1).unfold(3, self.size, 1)
             
-            # horizontal "slide" of convolution filter
-            for j in range(output_size):
+            # Reshape for batch matrix multiplication
+            patches = patches.reshape(batch_size, in_channels, -1, self.size*self.size)
+            
+            # Reshape weight to match patch dimensions for multiplication
+            weight = self.weight.reshape(in_channels, -1)  # reshape to (in_channels, kernel_size*kernel_size)
+            
+            # Compute convolution for all patches at once
+            # (batch_size, in_channels, num_patches, kernel_size*kernel_size) * (in_channels, kernel_size*kernel_size)
+            # Sum over channels and kernel dimensions
+            output = torch.sum(patches * weight.reshape(1, in_channels, 1, -1), dim=(1, 3))
+            
+            # Reshape output to match original spatial dimensions
+            output = output.reshape(batch_size, output_size, output_size)
+        else:       
+            # inititlize output tensor in the same device as the input
+            output = torch.empty(batch_size, output_size, output_size, device=x.device)
                 
-                # get patches of input using slicing to apply convolution on
-                # i and j represent the top left pixel in the convolution patch
-                input_patches = x[:, :, i:i+self.size, j:j+self.size]
+            ''' using for loops for readability and clarity, inefficiency doesn't matter here'''
+            # vertical "slide" of convolution filter
+            for i in range(output_size):
                 
-                # apply convolution and save result in output
-                # covolution: sum of hadmard product between input patch and kernel (dot product)
-                # (b,) = sum((b, c, 5, 5) * (c, 5, 5))
-                output[:, i, j] = torch.sum(input_patches * self.kernel, dim=(1,2,3)) 
+                # horizontal "slide" of convolution filter
+                for j in range(output_size):
+                    
+                    # get patches of input using slicing to apply convolution on
+                    # i and j represent the top left pixel in the convolution patch
+                    input_patches = x[:, :, i:i+self.size, j:j+self.size]
+                    
+                    # apply convolution and save result in output
+                    # covolution: sum of hadmard product between input patch and kernel (dot product)
+                    # (b,) = sum((b, c, 5, 5) * (c, 5, 5))
+                    output[:, i, j] = torch.sum(input_patches * self.weight, dim=(1,2,3)) 
         
         # validate output tensor
         assert not torch.isnan(output).any(), f"output not fully populated at conv filter {self.in_channels}"
@@ -336,13 +325,14 @@ class ConvolutionLayer(nn.Module):
     - in_channels: int
     '''
     
-    def __init__(self, in_channels, num_filters, filter_size, connections=None):
+    def __init__(self, in_channels, num_filters, filter_size, efficient=False, connections=None):
         super().__init__()
         
         # initialize useful fields
         self.in_channels = in_channels
         self.num_filters = num_filters
         self.filter_size = filter_size
+        self.efficient = efficient
         self.connections = connections  
         self.fc = not connections
         
@@ -391,18 +381,25 @@ class ConvolutionLayer(nn.Module):
             
             # if fully connected to previous layer, send all channels to filter
             if self.fc:
-                convolution = filter(x)
+                convolution = filter(x, self.efficient)
             else:
                 # (batch_size, 1, out_size, out_size)
-                convolution = filter(self._get_input(i, x))
+                convolution = filter(self._get_input(i, x), self.efficient)
 
             # asign local convolution to corresponding output region
             output[:, i, :, :] = convolution
         
         # ensure output is fully populated by convolutions
         assert not torch.isnan(output).any(), f"output not fully populated at conv layer {self.num_filters}"
-    
-        return output.squeeze()
+
+        # remove all singleton dimensions (e.g. (5, 1, 1) -> (5))
+        output = output.squeeze()
+        
+        # if single batch, add batch dimension back
+        # (e.g. (5) -> (1, 5))
+        if batch_size == 1:
+            output = output.unsqueeze(0)
+        return output
     
     def _get_input(self, i, x):
         
@@ -419,12 +416,12 @@ class AvgPoolingLayer(nn.Module):
     args:
     - num_channels: int
     '''
-    def __init__(self, num_channels, config):
+    def __init__(self, num_channels, efficient=False):
         super().__init__()
         self.num_channels = num_channels
-        self.config = config
-        self.weights = nn.Parameter(torch.ones(num_channels))
-        self.biases = nn.Parameter(torch.zeros(num_channels))
+        self.weight = nn.Parameter(torch.ones(num_channels))
+        self.bias = nn.Parameter(torch.zeros(num_channels))
+        self.efficient = efficient
     
     def forward(self, x):
         '''
@@ -451,7 +448,7 @@ class AvgPoolingLayer(nn.Module):
         # initialize output tensor
         output = torch.empty(batch_size, self.num_channels, out_size, out_size, device=x.device)
         
-        if not self.config['efficient']:
+        if not self.efficient:
             for i in range(0, in_size, 2):
                 for j in range(0, in_size, 2):
                     
@@ -475,8 +472,8 @@ class AvgPoolingLayer(nn.Module):
         
         # reshape from (num_channels,) to (1, num_channels, 1, 1) for dimensional compatability
         # with output
-        weights = self.weights.reshape(1, self.num_channels, 1, 1)
-        biases = self.biases.reshape(1, self.num_channels, 1, 1)
+        weights = self.weight.reshape(1, self.num_channels, 1, 1)
+        biases = self.bias.reshape(1, self.num_channels, 1, 1)
 
         # multiply weights by output and add bias
         # output: (b, c, s/2, s/2)
@@ -492,12 +489,12 @@ class RadialBasisFunctionLayer(nn.Module):
     - size: int -> 84
     - weights: tensor (num_classes, size) -> (10, 84)
     '''
-    def __init__(self, weights, num_classes, size, config):
+    def __init__(self, weights, num_classes, size, efficient):
         super().__init__()
         self.num_classes = num_classes
         self.size = size
-        self.config = config
-        self.weights = nn.Parameter(weights, requires_grad=False) if weights is not None else nn.Parameter(torch.zeros(self.num_classes, self.size))
+        self.efficient = efficient
+        self.bitmap_weight = nn.Parameter(weights, requires_grad=False) if weights is not None else nn.Parameter(torch.zeros(self.num_classes, self.size), requires_grad=False)
         
         
     def forward(self, x):
@@ -515,10 +512,10 @@ class RadialBasisFunctionLayer(nn.Module):
         # creates (batch_size, 10,) tensor representing prediction values
         output = torch.empty(batch_size, self.num_classes, device=x.device)
         
-        if not self.config['efficient']:
+        if not self.efficient:
             # iterate through class numbers and calculate prediction
             for i in range(self.num_classes):
-                diff = x - self.weights[i,:]
+                diff = x - self.bitmap_weight[i,:]
                 # prediction is the difference between input vector and weight 
                 # vector for a given class representing a 7x12 of the digit 
                 output[:, i] = torch.sum(diff**2, dim=1)
@@ -526,7 +523,7 @@ class RadialBasisFunctionLayer(nn.Module):
             # (batch_size, 84) -> (batch_size, 1, 84)
             x = x.unsqueeze(1)
             # (10, 84) -> (1, 10, 84)
-            w = self.weights.unsqueeze(0)
+            w = self.bitmap_weight.unsqueeze(0)
             # (batch_size, 1, 84) - (1, 10, 84) -> (batch_size, 10, 84)
             error_diff = x - w
             # (batch_size, 10, 84) -> (batch_size, 10,)
@@ -539,13 +536,87 @@ class RadialBasisFunctionLayer(nn.Module):
         return output
 
 class TanhActivation(nn.Module):
+    '''
+    "squashing function" authors of LeNet paper use for each layer. 
+    involves scaling layer output by 2/3 (S), applying tanh, and multiplying by
+    1.7159 (A)
+    '''
     # define static class attribute
     tanh = nn.Tanh()
 
     def forward(self, x):
         return 1.7159 * TanhActivation.tanh((2 / 3) * x)
     
-class LossFunction(nn.Module):
-    def forward(self, preds, labels, batch=True):
-        first_terms = preds[torch.arange(preds.size(0)), labels]
+class MaxAPosteriroiLoss(nn.Module):
+    def forward(self, preds, labels, j):
+        
+        # turns scalar into tensor
+        j = torch.tensor(j)
+        
+        # get batch size
+        batch_size = preds.shape[0]
+        
+        # uses pytorch's advanced indexing to get the correct prediction
+        # values for the sample/s in the batch: (batch_size, 1)
+        y_true = preds[torch.arange(batch_size), labels].reshape(-1)
+        
+        # scalar term that controls ratio of MAP portion of loss
+        exp_term = torch.exp(-j)
+        
+        # raises e by all 10 predictions for all 16 samples and sum 
+        # all prediction values for each sample in the batch:
+        # (batch_size,1)
+        sum_terms = torch.sum(torch.exp(-preds), dim=1)
+        
+        # return mean of all predictions for sample/s 
+        return torch.mean(y_true + torch.log(exp_term + sum_terms))
+
+# implementation of Stochastic Diagonal Levenberg-Marquard 
+# optimizer as specified in appendix c
+class SDLMOptimizer(Optimizer):
+    def __init__(self, params, lr, safety, mu):
+        # put hyperparams in a dict and initialize it using superclass
+        hyperparams = dict(lr=lr, safety=safety, mu=mu)
+        # initializes optimizer.state, optimizer.param_groups, and hyperparameters
+        super().__init__(params, hyperparams)
+
+        # initialize hessian attribute for each parameter in state dict
+        for param in self.param_groups[0]['params']:
+            self.state[param]['hessian'] = torch.zeros_like(param)
+                
+    def update_lr(self,lr):
+        self.param_groups[0]['lr'] = lr
+    
+    def step(self):
+        # get hyperparameters
+        lr = self.param_groups[0]['lr']
+        safety = self.param_groups[0]['safety']
+        mu = self.param_groups[0]['mu']
+        
+        # iterate through every parameter tensor
+        for param in self.param_groups[0]['params']:
+            
+            # get current hessian estimate
+            old_hessian = self.state[param]['hessian']
+            
+            # update hessian estimate using the square of gradient according to appendix c
+            
+            # square gradient of parameter
+            gradient_squared = param.grad.data ** 2
+            
+            # dampening value (0.99) * old_hessian value + 0.01 * grad*grad
+            # grad*grad is an approximation/replacement of the second derivative
+            new_hessian = mu * old_hessian + (1-mu) * gradient_squared
+            self.state[param]['hessian'] = new_hessian
+        
+            # safety adds noise to the hessian signal (controls how much or how little)
+            # the larger the second derivative, the smaller the step size
+            step_size = lr / (safety + new_hessian)
+            
+            # calculate update tensor
+            update = -step_size * param.grad.data
+            
+            # update weight value -> e_k * w_k
+            param.data.add_(update)
+        return update
         
