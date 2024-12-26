@@ -1,12 +1,13 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
 
-# LeNet-5 implementation with custom classes
+# "LeNet-5 pytorch implementation: custom cnn class designed and trained using original paper specifications"
 
 
 ## contents
 - [about](#about)
 - [features](#features)
 - [results](#results)
+- [implementation-details](#implementation-details)
 
 ## about
 this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based Learning Applied to Document Recognition"](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) which introduced LeNet-5, a low-parameter, CNN-based neural network to classify handwritten digits 0-9.
@@ -65,4 +66,12 @@ after training for 2 epochs on the MNIST dataset (60,000 training samples), the 
 #### after training
 ![Post-training Predictions](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
 
+## implementation details 
+- input layer: 32x32 grayscale images 
+- first convolutional layer (c1): 6 feature maps, 5x5 kernels
+- first pooling layer (s2): 2x2 average pooling
+- second convolutional layer (c3): 16 feature maps, 5x5 kernels
+- second pooling layer (s4): 2x2 average pooling
+- fully connected layers (f5, f6): 120 units, 84 units
+- output layer: rbf-based classification
 
