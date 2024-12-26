@@ -18,7 +18,7 @@ all training code/class code/final models available
 
 ### designed the following from scratch using only PyTorch's tensor operations:
 - custom convolution layer implementation
-  - supports fully connected AND sparse connection patterns between channels (more flexible than PyTorch's nn.Conv2d in this)
+  - supports sparse connection patterns between channels unlike PyTorch's nn.Conv2d
 - custom average pooling layer
 - custom loss function
 - custom optimizer
