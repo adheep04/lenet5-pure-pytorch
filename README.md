@@ -23,7 +23,7 @@ all training code/class code/final models available
 - custom loss function
 - custom optimizer
 
-### follows the original 1998 paper's specifications exactly including...
+### follows the original 1998 paper's specifications exactly:
 - network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
 - hyperparameter values
   - like A and S in the paper's tanh "squash" function (though they didn't reveal all of the exact values used)
