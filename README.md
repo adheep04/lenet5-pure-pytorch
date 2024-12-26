@@ -1,6 +1,6 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
 
-# custom pytorch LeNet-5 implementation
+# LeNet-5 implementation with custom classes
 
 
 ## contents
