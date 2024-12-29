@@ -8,9 +8,9 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
 
 ## features:
 - custom implementations of:
- - a convolution and a convolution layer which supports non-dense connections between channels unlike pytorch's nn.conv2d
- - average pooling, loss function, and optimizer using pytorch tensors operations 
-   - maximum a posteriori loss and sdlm optimizer
+  - a convolution and a convolution layer which supports non-dense connections between channels unlike pytorch's nn.conv2d
+  - average pooling, loss function, and optimizer using pytorch tensors operations 
+    - maximum a posteriori loss and sdlm optimizer
 - follows original paper's specifications strictly for architecture, hyperparameters, initialization, and even the handwritten 10x8x12 bitmap of all 0-9 digits stylized used as weights in the paper!!! https://ibb.co/d6ktzc0
 - trained with 60,000 samples and validated with 10,000 on mnist dataset
 
