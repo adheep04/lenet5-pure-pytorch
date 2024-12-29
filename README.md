@@ -1,77 +1,46 @@
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
+[![pwc](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
 
 # LeNet-5 implementation with custom classes
 
-
-## contents
-- [about](#about)
-- [features](#features)
-- [results](#results)
-- [implementation-details](#implementation-details)
-
-## about
-this is a reimplementation of LeCunn's 1998 influential paper ["Gradient Based Learning Applied to Document Recognition"](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf) which introduced LeNet-5, a low-parameter, CNN-based neural network to classify handwritten digits 0-9.
+this project implements LeCunn's 1998 paper ["gradient based learning applied to document recognition"](http://vision.stanford.edu/cs598_spring07/papers/lecun98.pdf) which introduced LeNet-5, a cnn-based neural network for classifying handwritten digits. code and models are available.
 
 also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-document
 
-all training code/class code/final models available
-## features
+## features:
+- custom implementations of:
+ - a convolution and a convolution layer which supports non-dense connections between channels unlike pytorch's nn.conv2d
+ - average pooling, loss function, and optimizer using pytorch tensors operations 
+   - maximum a posteriori loss and sdlm optimizer
+- follows original paper's specifications strictly for architecture, hyperparameters, initialization, and even the handwritten 10x8x12 bitmap of all 0-9 digits stylized used as weights in the paper!!! https://ibb.co/d6ktzc0
+- trained with 60,000 samples and validated with 10,000 on mnist dataset
 
-### designed the following from scratch using only PyTorch's tensor operations:
-- custom convolution layer implementation
-  - supports sparse connection patterns between channels unlike PyTorch's nn.Conv2d
-- custom average pooling layer
-- custom loss function
-- custom optimizer
+## results after 2 epochs of training:
+- macro f1 score: 0.964 
+- per-digit f1 scores:
+ | digit | f1 score |
+ |-------|----------|
+ | 0     | 0.980    |
+ | 1     | 0.990    |
+ | 2     | 0.960    |
+ | 3     | 0.955    |
+ | 4     | 0.979    |
+ | 5     | 0.979    |
+ | 6     | 0.955    |
+ | 7     | 0.955    |
+ | 8     | 0.938    |
+ | 9     | 0.950    |
+- all digit-f1 scores above 0.93!!
 
-### follows the original 1998 paper's specifications exactly:
-- network architecture (conv5x5 -> avgpool -> conv5x5 -> avgpool -> fc -> rbf -> pred)
-- hyperparameter values
-  - like A and S in the paper's tanh "squash" function (though they didn't reveal all of the exact values used)
-- weight initialization method 
-- loss function and optimizer design (maximum a posteriori loss and SDLM optimizer)
-- trained and validated on MNIST dataset (60,000 training samples, 10,000 validation samples)
-
-## results
-
-### model performance
-after training for 2 epochs on the MNIST dataset (60,000 training samples), the model achieved:
-- macro F1 score: 0.964 (current state of the art models classifiers achieve around 0.99)
-- per-digit F1 scores:
-  | Digit | F1 Score |
-  |-------|----------|
-  | 0     | 0.980    |
-  | 1     | 0.990    |
-  | 2     | 0.960    |
-  | 3     | 0.955    |
-  | 4     | 0.979    |
-  | 5     | 0.979    |
-  | 6     | 0.955    |
-  | 7     | 0.955    |
-  | 8     | 0.938    |
-  | 9     | 0.950    |
-
-#### highlights 
-- training converged in just 2 epochs 
-- consistent F1 scores above 0.93 across all digits
-
-### training visualization
-#### loss over time (epoch 1)
+training loss over time:
 ![loss-over-time](https://github.com/user-attachments/assets/c120031b-8aae-4a7b-987b-22330ea578dc)
 
-### model predictions (before/after)
-#### before training
-![Pre-training Predictions](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
+before/after predictions:  
+![pre-training predictions](https://github.com/user-attachments/assets/88bb8314-6cfc-4ae2-89bb-8a9e44505977)
+![post-training predictions](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
 
-#### after training
-![Post-training Predictions](https://github.com/user-attachments/assets/91b42650-4e7f-4e7e-a672-407cdf0683d4)
-
-## implementation details 
-- input layer: 32x32 grayscale images 
-- first convolutional layer (c1): 6 feature maps, 5x5 kernels
-- first pooling layer (s2): 2x2 average pooling
-- second convolutional layer (c3): 16 feature maps, 5x5 kernels
-- second pooling layer (s4): 2x2 average pooling
-- fully connected layers (f5, f6): 120 units, 84 units
-- output layer: rbf-based classification
-
+implementation details:
+- input: 32x32 grayscale images
+- architecture: 
+ - conv5x5 (6 maps) -> avgpool2x2 
+ - conv5x5 (16 maps) -> avgpool2x2
+ - fc (120) -> fc (84) -> rbf output
