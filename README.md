@@ -14,7 +14,7 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
 - follows original paper's specifications strictly for architecture, hyperparameters, initialization, and even the handwritten 10x8x12 bitmap of all 0-9 digits stylized used as weights in the paper!!! https://ibb.co/d6ktzc0
 - trained with 60,000 samples and validated with 10,000 on mnist dataset
 
-## results after 2 epochs of training:
+## performance after 2 epochs of training:
 - macro f1 score: 0.964 
 - per-digit f1 scores:
   | Digit | F1 Score |
