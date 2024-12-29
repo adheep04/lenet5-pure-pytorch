@@ -1,7 +1,5 @@
 [![pwc](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
 
-# LeNet-5 implementation with custom classes
-
 this project implements LeCunn's 1998 paper ["gradient based learning applied to document recognition"](http://vision.stanford.edu/cs598_spring07/papers/lecun98.pdf) which introduced LeNet-5, a cnn-based neural network for classifying handwritten digits. code and models are available.
 
 also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-document
