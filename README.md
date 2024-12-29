@@ -18,17 +18,18 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
 - macro f1 score: 0.964 
 - per-digit f1 scores:
 | digit | f1 score |
-|-------|----------|
-| 0     | 0.980    |
-| 1     | 0.990    |
-| 2     | 0.960    |
-| 3     | 0.955    |
-| 4     | 0.979    |
-| 5     | 0.979    |
-| 6     | 0.955    |
-| 7     | 0.955    |
-| 8     | 0.938    |
-| 9     | 0.950    |
+| Digit | F1 Score |
+| --- | --- |
+| 0 | 0.980 |
+| 1 | 0.990 |
+| 2 | 0.960 |
+| 3 | 0.955 |
+| 4 | 0.979 |
+| 5 | 0.979 |
+| 6 | 0.955 |
+| 7 | 0.955 |
+| 8 | 0.938 |
+| 9 | 0.950 |
 - all digit-f1 scores above 0.93!!
 
 training loss over time:
