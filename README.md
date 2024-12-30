@@ -2,7 +2,7 @@
 
 # LeNet-5 reimplementation
 
-this project implements LeCunn's 1998 paper ["gradient based learning applied to document recognition"](http://vision.stanford.edu/cs598_spring07/papers/lecun98.pdf). It achieved a 0.96 on the f1 macro metric with minimal training epochs. code and models are available.
+this project implements LeCunn's 1998 paper ["gradient based learning applied to document recognition"](http://vision.stanford.edu/cs598_spring07/papers/lecun98.pdf). the model performed a 0.96 on the f1 macro metric with minimal training epochs. code and models are available.
 
 also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-document
 
