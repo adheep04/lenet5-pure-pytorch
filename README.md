@@ -1,6 +1,6 @@
 [![pwc](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gradient-based-learning-applied-to-document/handwritten-digit-recognition-on-digits-1)](https://paperswithcode.com/sota/handwritten-digit-recognition-on-digits-1?p=gradient-based-learning-applied-to-document)
 
-# LeNet-5 reimplementation
+# LeNet-5 implementation
 
 this project implements LeCunn's 1998 paper ["gradient based learning applied to document recognition"](http://vision.stanford.edu/cs598_spring07/papers/lecun98.pdf). the model performed a 0.96 on the f1 macro metric with minimal training epochs. code and models are available.
 
