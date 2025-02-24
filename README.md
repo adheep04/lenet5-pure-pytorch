@@ -11,7 +11,8 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
   - a convolution layer class which supports sparse connections between channels and shared weights making it more flexible than pytorch's nn.conv2d!
   - average pooling, loss function, and optimizer using pytorch tensors operations 
     - maximum a posteriori loss and sdlm optimizer
-- follows original paper's specifications strictly for architecture, hyperparameters, initialization, and even the stylized 10x8x12 bitmap the 0-9 digits used as weights in the rbf layer!!! [https://ibb.co/d6ktzc0](https://ibb.co/d6KTZC0)
+- follows original paper's specifications strictly for architecture, hyperparameters, initialization, and even the stylized 10x8x12 bitmap the 0-9 digits used as weights in the rbf layer
+  [https://ibb.co/d6ktzc0](https://ibb.co/d6KTZC0)
 - trained with 60,000 samples and validated with 10,000 on mnist dataset
 
 ## performance after 2 epochs of training:
@@ -30,7 +31,7 @@ also on https://paperswithcode.com/paper/gradient-based-learning-applied-to-docu
   | 8     | 0.938    |
   | 9     | 0.950    |
   
-- all digit-f1 scores above 0.93!!
+- all digit-f1 scores above 0.93!
 
 training loss over time:
 ![loss-over-time](https://github.com/user-attachments/assets/c120031b-8aae-4a7b-987b-22330ea578dc)
